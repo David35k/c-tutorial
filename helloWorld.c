@@ -1,26 +1,22 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <string.h>
 
 int main()
 {
+    // user input!!!!!!
 
-    // math operations!!!
+    int age;
+    char name[25]; // bytes
 
-    // when dividing by an int you will lose the decimal point
-    // you can either change the divisor variable to a float or
-    // converting it by preseeding the type
+    printf("\nWhats good homie, whats your name?");
+    // scanf("%s", &name);         //scanf reads until whitespace
+    fgets(name, 25, stdin);        // can read the whitespace
+    name[strlen(name) - 1] = '\0'; // gets rid of the newline character
 
-    int x = 5;
-    int y = 2;
+    printf("How old are you %s?", name);
+    scanf("%d", &age);
 
-    float z = x / (float)y; // 2 becomes 2.0
-
-    int a = x % y; // modulus same as other languages, gives remainder of division
-
-    printf("%f\n", z);
-    printf("%d\n", a);
-
-    // incrementing same as other languages, ++ --
+    printf("%s, you are %d years old\n", name, age);
 
     return 0;
 }
