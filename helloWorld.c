@@ -4,28 +4,23 @@
 int main()
 {
 
-    // const bool doILoveMen = true;
+    // math operations!!!
 
-    // doILoveMen = false; // ha that gives an error you will forever love men
+    // when dividing by an int you will lose the decimal point
+    // you can either change the divisor variable to a float or
+    // converting it by preseeding the type
 
-    float itemPrices[] = {5.75, 49.99, 99.99};
-    char sussy[][100] = {"Bugatti", "Food XD", "Air (per cubic centimetre)"};
+    int x = 5;
+    int y = 2;
 
-    size_t size = sizeof(itemPrices) / sizeof(itemPrices[0]);
+    float z = x / (float)y; // 2 becomes 2.0
 
-    for (int i = 0; i < size; i++)
-    {
-        printf("%s: $%8.2f\n", sussy[i], itemPrices[i]);
-    }
+    int a = x % y; // modulus same as other languages, gives remainder of division
 
-    // GRAHH TAX!!!! NO!!!!
-    printf("NO TAX!!!! >:(\n");
+    printf("%f\n", z);
+    printf("%d\n", a);
 
-    for (int i = 0; i < size; i++)
-    {
-        itemPrices[i] *= 5;
-        printf("%s: $%8.2f\n", sussy[i], itemPrices[i]);
-    }
+    // incrementing same as other languages, ++ --
 
     return 0;
 }
