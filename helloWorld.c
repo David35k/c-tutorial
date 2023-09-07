@@ -3,26 +3,16 @@
 
 int main()
 {
+    // contrinue = skips rest of code and forces the next iteration fo the loop
+    // break = exits a loop/switch
 
-    // while loop = repeats a section of code possibly unlimited times
-    // while some condition remains true
-    // a while loop might not execute at all, depends on condition
-
-    char name[25];
-
-    printf("\nWhat's your name? ");
-    fgets(name, 25, stdin);
-    name[strlen(name) - 1] = '\0';
-
-    while (strlen(name) == 0)
+    //count to 20 but skip 13
+    for (int i = 1; i <= 20; i++)
     {
-        printf("\nwhat da frick ninja write your name!!");
-        printf("\nWhat's your name? ");
-        fgets(name, 25, stdin);
-        name[strlen(name) - 1] = '\0';
+        if(i == 13) {
+            continue;
+        }
+        printf("%d\n", i);
     }
-
-    printf("hello ninja %s", name);
-
     return 0;
 }
