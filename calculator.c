@@ -12,7 +12,7 @@ int main() {
     double sol;
 
     // ask the user for the calculation
-    printf("\nsEnter your calculation in format (a+b or a*b)");
+    printf("\nEnter your calculation in format (a+b or a*b)");
     scanf("%lf %c %lf", &a, &op, &b);
 
     // give the right solution depending on the operation
