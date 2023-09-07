@@ -1,18 +1,18 @@
 #include <stdio.h>
-#include <math.h>
+
+int findMax(int x, int y)
+{
+    return (x > y) ? x : y;
+}
 
 int main()
 {
-    char grade;
+    // ternary operator is shortcut for if statement when assigning or returning a value
+    // (condition) ? value if true : value if false
 
-    printf("gimme letter grade ninja!");
-    scanf("%c", &grade);
+    int max = findMax(10, 4);
 
-    switch(grade) {
-        case 'A':
-            printf("Nice ninja good grade!!");
-            break;
-    }
+    printf("%d", max);
 
     return 0;
 }
