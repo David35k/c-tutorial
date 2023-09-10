@@ -3,16 +3,20 @@
 
 int main()
 {
-    double prices[] = {5.0, 7.5, 3.99, 74.99, 14.99};
+    // made them the same size because if strcpy(x, y) and y<x (length) you get weird stuff
+    char x[15] = "king";
+    char y[15] = "sus";
+    char temp[15];
 
-    size_t size = sizeof(prices) / sizeof(prices[0]);
+    printf("x = %s\n", x);
+    printf("y = %s\n", y);
 
-    printf("%d elements in the array\n", size);
+    strcpy(temp, x);
+    strcpy(x, y);
+    strcpy(y, temp);
 
-    for (int i = 0; i < size; i++)
-    {
-        printf("$%.2lf\n", prices[i]);
-    }
+    printf("new x = %s\n", x);
+    printf("new y = %s\n", y);
 
     return 0;
 }
