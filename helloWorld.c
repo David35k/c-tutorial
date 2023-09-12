@@ -1,23 +1,33 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct{
-    char name[25];
-    char password[12];
-    int id;
-} User;
-
-// User is now the name for structs that have a name password and id
+enum Day
+{
+    Mon = 1,
+    Tue = 2,
+    Wed = 3,
+    Thu = 4,
+    Fri = 5,
+    Sat = 6,
+    Sun = 7
+};
 
 int main()
 {
-    // typedef = reserved keyword that gives an existing datatype a "nickname"
+    // enum = a user defined type of named integer identifiers
+    // helps to make a program more readable
+    // enums are not strings, but they can be treated as int
 
-    User user1 = {"David", "sussy123", 14};
-    User user2 = {"Bruhman", "password123", 3};
+    enum Day today = Tue;
 
-    printf("name: %s, password: %s, ID: %d\n", user1.name, user1.password, user1.id);
-    printf("name: %s, password: %s, ID: %d\n", user2.name, user2.password, user2.id);
+    if (today == Sat || today == Sun)
+    {
+        printf("hooray ninja, its the weekends!!");
+    }
+    else
+    {
+        printf("aw man, its a workday, all good brah stay on the grind");
+    }
 
     return 0;
 }
