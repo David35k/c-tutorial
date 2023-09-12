@@ -1,29 +1,23 @@
 #include <stdio.h>
 #include <string.h>
 
-struct Player
-{
-    char name[12];
-    int score;
-};
+typedef struct{
+    char name[25];
+    char password[12];
+    int id;
+} User;
+
+// User is now the name for structs that have a name password and id
 
 int main()
 {
-    // structs
+    // typedef = reserved keyword that gives an existing datatype a "nickname"
 
-    struct Player player1;
-    struct Player player2;
+    User user1 = {"David", "sussy123", 14};
+    User user2 = {"Bruhman", "password123", 3};
 
-    // using strcpy cos strings
-
-    strcpy(player1.name, "david");
-    player1.score = 69;
-    
-    strcpy(player2.name, "bro");
-    player2.score = 1;
-
-    printf("name: %s, score: %d\n", player1.name, player1.score);
-    printf("name: %s, score: %d\n", player2.name, player2.score);
+    printf("name: %s, password: %s, ID: %d\n", user1.name, user1.password, user1.id);
+    printf("name: %s, password: %s, ID: %d\n", user2.name, user2.password, user2.id);
 
     return 0;
 }
