@@ -1,22 +1,29 @@
 #include <stdio.h>
 #include <string.h>
 
+struct Player
+{
+    char name[12];
+    int score;
+};
+
 int main()
 {
-    // made them the same size because if strcpy(x, y) and y<x (length) you get weird stuff
-    char x[15] = "king";
-    char y[15] = "sus";
-    char temp[15];
+    // structs
 
-    printf("x = %s\n", x);
-    printf("y = %s\n", y);
+    struct Player player1;
+    struct Player player2;
 
-    strcpy(temp, x);
-    strcpy(x, y);
-    strcpy(y, temp);
+    // using strcpy cos strings
 
-    printf("new x = %s\n", x);
-    printf("new y = %s\n", y);
+    strcpy(player1.name, "david");
+    player1.score = 69;
+    
+    strcpy(player2.name, "bro");
+    player2.score = 1;
+
+    printf("name: %s, score: %d\n", player1.name, player1.score);
+    printf("name: %s, score: %d\n", player2.name, player2.score);
 
     return 0;
 }
