@@ -4,40 +4,21 @@
 
 int main()
 {
+    // memory = an array of bytes within RAM
+    // memory block = a single unit (byte = 8 bits) within memory, used to hold some value
+    // memory address = the address of where a memory block is located
 
-    // bitwise operators = special operators used in bit level programming
+    char a;
+    double b[2];
+    char c[69];
 
-    // & = AND
-    // | = OR
-    // ^ = XOR - exclusive or
-    // << = LEFT SHIFT
-    // >> = RIGHT SHIFT
+    printf("a is %d bytes\n", sizeof(a));
+    printf("b is %d bytes\n", sizeof(b));
+    printf("c is %d bytes\n", sizeof(c));
 
-    int x = 6;  //  6 = 00000110
-    int y = 12; // 12 = 00001100
-    int z = 0;  //  0 = 00000000
-
-    z = x & y;
-    printf("x & y = %d\n", z);
-    
-    z = x | y;
-    printf("x | y = %d\n", z);
-    
-    z = x ^ y;
-    printf("x ^ y = %d\n", z);
-    
-    z = x << 1;
-    printf("x << 1 = %d\n", z);
-    
-    z = x << 3;
-    printf("x << 3 = %d\n", z);
-    
-    z = x >> 1;
-    printf("x >> 1 = %d\n", z);
-    
-    z = x >> 3;
-    printf("x >> 3 = %d\n", z);
-
+    printf("address of a: %p\n", &a);
+    printf("address of b: %p\n", &b);
+    printf("address of c: %p\n", &c);
 
     return 0;
 }
