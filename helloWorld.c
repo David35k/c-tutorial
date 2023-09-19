@@ -2,16 +2,42 @@
 #include <string.h>
 #include <ctype.h>
 
-int main() {
+int main()
+{
 
-    char sus;
+    // bitwise operators = special operators used in bit level programming
 
-    printf("wassup g: ");
-    scanf("%c", &sus);
+    // & = AND
+    // | = OR
+    // ^ = XOR - exclusive or
+    // << = LEFT SHIFT
+    // >> = RIGHT SHIFT
 
-    sus = toupper(sus);
+    int x = 6;  //  6 = 00000110
+    int y = 12; // 12 = 00001100
+    int z = 0;  //  0 = 00000000
 
-    printf("\nthis what you said: %c", sus);
+    z = x & y;
+    printf("x & y = %d\n", z);
+    
+    z = x | y;
+    printf("x | y = %d\n", z);
+    
+    z = x ^ y;
+    printf("x ^ y = %d\n", z);
+    
+    z = x << 1;
+    printf("x << 1 = %d\n", z);
+    
+    z = x << 3;
+    printf("x << 3 = %d\n", z);
+    
+    z = x >> 1;
+    printf("x >> 1 = %d\n", z);
+    
+    z = x >> 3;
+    printf("x >> 3 = %d\n", z);
+
 
     return 0;
 }
