@@ -19,34 +19,32 @@ int main()
 
     printf("CAPITAL CITIES QUIZ\n");
 
+    // loop through the questions
     for (int i = 0; i < numOfQuestions; i++)
     {
         printf("%s\n", questions[i]);
 
+        //print all of the answer choices
         for (int j = 0; j < 4; j++)
         {
             printf("%s | ", options[j + 4 * i]);
         }
 
-        printf("\n\n");
+        // get user input
+        printf("\nyour guess: ");
+        scanf(" %c", &guess);
 
-        printf("guess :");
-        scanf("%c", &guess);
-        scanf("%c"); // clear \n character from input buffer
-        // strcpy(guess, "\0");
-
-        // guess = toupper(guess);
-
-        if (guess == answers[i])
-        {
-            printf("correct!\n");
+        guess = toupper(guess);
+        
+        if(guess == answers[i]) {
+            //if correct answer increase score
             score++;
+            printf("CORRECT\n");
+        } else {
+            printf("WRONG\n");
         }
-        else
-        {
-            printf("%c , %c", answers[i], guess);
-            printf("wrong!\n");
-        }
+
+        printf("\n");
     }
 
     printf("Your score is %d/%d", score, sizeof(questions) / sizeof(questions[0]));
