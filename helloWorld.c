@@ -4,21 +4,21 @@
 
 int main()
 {
-    // memory = an array of bytes within RAM
-    // memory block = a single unit (byte = 8 bits) within memory, used to hold some value
-    // memory address = the address of where a memory block is located
+    // POINTERS!!! = a "variable-like" that holds a memory address to another variable, array etc.
+    // some tasks are performed more easily with pointers
+    // * = indirection operator (value at address)
 
-    char a;
-    double b[2];
-    char c[69];
+    int age = 21;
+    int *pAge = &age;
 
-    printf("a is %d bytes\n", sizeof(a));
-    printf("b is %d bytes\n", sizeof(b));
-    printf("c is %d bytes\n", sizeof(c));
+    printf("address of age: %p\n", &age);
+    printf("value of pAge : %p\n", pAge);
 
-    printf("address of a: %p\n", &a);
-    printf("address of b: %p\n", &b);
-    printf("address of c: %p\n", &c);
+    printf("size of age: %d bytes\n", sizeof(age));
+    printf("size of pAge : %d bytes\n", sizeof(pAge));
+
+    printf("value of age: %d\n", age);
+    printf("value at stored address: %d\n", *pAge); // dereferencing
 
     return 0;
 }
