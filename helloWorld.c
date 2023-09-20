@@ -1,32 +1,28 @@
 #include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-
-void printAge(int *pAge)
-{
-    printf("you are %d years old", *pAge); // dereference
-}
 
 int main()
 {
-    // POINTERS!!! = a "variable-like" that holds a memory address to another variable, array etc.
-    // some tasks are performed more easily with pointers
-    // * = indirection operator (value at address)
+    // w is for writing to the file, overwrites what is already in it
+    // a is for appending to the file, adds to the file instead of overwriting
 
-    int age = 16;
-    int *pAge = NULL; // good practice to assign NULL if declaring pointer
-    pAge = &age;
+    FILE *pF = fopen("C:\\Users\\david\\OneDrive\\Desktop\\test.txt", "w");
 
-    printAge(pAge);
+    fprintf(pF, "\nobamna :3");
 
-    // printf("address of age: %p\n", &age);
-    // printf("value of pAge : %p\n", pAge);
+    fclose(pF); //close file at the end
 
-    // printf("size of age: %d bytes\n", sizeof(age));
-    // printf("size of pAge : %d bytes\n", sizeof(pAge));
 
-    // printf("value of age: %d\n", age);
-    // printf("value at stored address: %d\n", *pAge); // dereferencing
+    // deleting a file
+
+
+    // if (remove("test.txt") == 0)
+    // {
+    //     printf("\nNice dude, you deleted that file");
+    // }
+    // else
+    // {
+    //     printf("\nDawg, that file was NOT deleted");
+    // }
 
     return 0;
 }
