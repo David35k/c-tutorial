@@ -2,27 +2,25 @@
 
 int main()
 {
-    // w is for writing to the file, overwrites what is already in it
-    // a is for appending to the file, adds to the file instead of overwriting
+    FILE *pF = fopen("C:\\Users\\david\\OneDrive\\Desktop\\test.txt", "r");
+    char buffer[255];
 
-    FILE *pF = fopen("C:\\Users\\david\\OneDrive\\Desktop\\test.txt", "w");
+    // check if the file exists
+    if (pF == NULL)
+    {
+        printf("Dude, unable to open file");
+    }
+    else
+    {
+        // loops through all of the lines in the file and prints them
+        // if reaches end of file fgets will return NULL
+        while (fgets(buffer, 255, pF) != NULL)
+        {
+            printf("%s", buffer);
+        }
+    }
 
-    fprintf(pF, "\nobamna :3");
-
-    fclose(pF); //close file at the end
-
-
-    // deleting a file
-
-
-    // if (remove("test.txt") == 0)
-    // {
-    //     printf("\nNice dude, you deleted that file");
-    // }
-    // else
-    // {
-    //     printf("\nDawg, that file was NOT deleted");
-    // }
+    fclose(pF);
 
     return 0;
 }
