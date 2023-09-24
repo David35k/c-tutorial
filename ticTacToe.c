@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
+#include <string.h>
 
 // number of rows and columns
 #define SIZE 3
@@ -13,9 +14,9 @@ int currentPlayer = 1;
 
 char winner;
 
-void printBoard(char[SIZE][SIZE]);
-int checkWin(char[SIZE][SIZE]);        // returns the player that won (1 or 2)
-int checkFreeSpaces(char[SIZE][SIZE]); // returns amount of free spaces left
+void printBoard();
+int checkWin();        // returns the player that won (1 or 2)
+int checkFreeSpaces(); // returns amount of free spaces left
 void playerMove();
 void computerMove();
 
@@ -39,9 +40,9 @@ int main()
     printf("\n######## TIC-TAC-TOE ########\n");
     printf("\n");
 
-    printBoard(board);
+    printBoard();
 
-    while (checkWin(board) == 0)
+    while (checkWin() == 0)
     {
         if (currentPlayer == 1)
         {
@@ -51,52 +52,48 @@ int main()
         {
         }
 
-        printBoard(board);
+        printBoard();
     }
 
     return 0;
 }
 
-void printBoard(char board[SIZE][SIZE])
+void printBoard()
 {
     // loop through the board
     for (int i = 0; i < SIZE; i++)
     {
+
         for (int j = 0; j < SIZE; j++)
         {
             if (j == 0)
             {
-                printf("%c", board[i][j]);
+                printf(" %c ", board[i][j]);
             }
             else
             {
-                printf(" | %c", board[i][j]);
+                printf("| %c ", board[i][j]);
             }
         }
 
         if (i != SIZE - 1)
         {
-            char string[SIZE * 3];
-
-            for (int i = 0; i < SIZE * 3; i++)
-            {
-                string[i] = '-';
-            }
-
-            printf("\n%s\n", string);
+            printf("\n-----------\n");
         }
     }
+
+    printf("\n");
 }
 
-int checkWin(char board[SIZE][SIZE])
+int checkWin()
 {
-
-    // check for win horzontally and vertically
+    // check for win horizontally and vertically
     for (int i = 0; i < SIZE; i++)
     {
         char checkHor[SIZE];
         char checkVert[SIZE];
-        bool flag = false;
+        bool flagHor = false;
+        bool flagVert = false;
         for (int j = 0; j < SIZE; j++)
         {
             checkHor[j] = board[i][j];
@@ -105,25 +102,68 @@ int checkWin(char board[SIZE][SIZE])
 
         for (int j = 1; j < SIZE; j++)
         {
-            if (checkHor[j] != checkHor[j - 1] || checkHor[j] == ' ' || checkVert[j] != checkVert[j - 1])
+            if (checkHor[j] != checkHor[j - 1] || checkHor[j] == ' ')
             {
-                flag = true;
+                flagHor = true;
+            }
+
+            if (checkVert[j] != checkVert[j - 1] || checkVert[j] == ' ')
+            {
+                flagVert = true;
             }
         }
 
-        if (!flag)
+        if (!flagHor || !flagVert)
         {
-            winner = checkHor[0];
+            winner = !flagHor ? checkHor[0] : checkVert[0];
             printf("\nwinner is %c", winner);
             return winner == 'X' ? 1 : 2;
         }
     }
 
+    // check for win diagonally
+    bool flagRight = false;
+    bool flagLeft = false;
+
+    for (int i = 1; i < SIZE; i++)
+    {
+        if (board[i][i] != board[i - 1][i - 1] || board[i][i] == ' ')
+        {
+            flagRight = true;
+        }
+
+        if (board[i][SIZE - i - 1] != board[i - 1][SIZE - i] || board[i][SIZE - i - 1] == ' ')
+        {
+            flagLeft = true;
+        }
+    }
+
+    if (!flagRight || !flagLeft)
+    {
+        winner = !flagRight ? board[0][0] : board[0][SIZE - 1];
+        printf("\nThe winner is %c!!", winner);
+        return winner == 'X' ? 1 : 2;
+    }
+
     return 0;
 }
 
-int checkFreeSpaces(char board[SIZE][SIZE])
+int checkFreeSpaces()
 {
+    int count = 0;
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            if (board[i][j] == ' ')
+            {
+                count++;
+            }
+        }
+    }
+
+    return count;
 }
 
 void playerMove()
