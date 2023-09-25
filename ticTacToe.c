@@ -20,6 +20,7 @@ int checkWin();        // returns the player that won (1 or 2)
 int checkFreeSpaces(); // returns amount of free spaces left
 void playerMove();
 void computerMove();
+void clearBoard();
 
 int main()
 {
@@ -29,41 +30,50 @@ int main()
         return 1;
     }
 
-    // assign starting values to the board
-    for (int i = 0; i < SIZE; i++)
+    bool playAgain = false;
+
+    do
     {
-        for (int j = 0; j < SIZE; j++)
-        {
-            board[i][j] = ' ';
-        }
-    }
+        clearBoard();
 
-    printf("\n######## TIC-TAC-TOE ########\n");
-    printf("\n");
-
-    printBoard();
-
-    while (checkWin() == 0)
-    {
-        if (currentPlayer == 1)
+        while (checkWin() == 0)
         {
-            playerMove();
-            currentPlayer = 2;
-        }
-        else if (currentPlayer == 2)
-        {
-            computerMove();
-            currentPlayer = 1;
+            printBoard();
+
+            if (currentPlayer == 1)
+            {
+                playerMove();
+                currentPlayer = 2;
+            }
+            else if (currentPlayer == 2)
+            {
+                computerMove();
+                currentPlayer = 1;
+            }
         }
 
-        printBoard();
-    }
+        char tempChar;
+        printf("play again? (y/n) ");
+        scanf(" %c", &tempChar);
+
+        playAgain = tempChar == 'y' ? true : false;
+
+        if (tempChar != 'y' && tempChar != 'n')
+        {
+            printf("quit messin' around mate!!!");
+        }
+
+    } while (playAgain);
 
     return 0;
 }
 
 void printBoard()
 {
+    printf("\e[H\e[2J\e[3J"); // clears the screen to make it cool and clean
+    printf("\n######## TIC-TAC-TOE ########\n");
+    printf("\n");
+
     // loop through the board
     for (int i = 0; i < SIZE; i++)
     {
@@ -85,6 +95,7 @@ void printBoard()
             int charsNum = 4 * (SIZE - 1);
             char str[100] = "---";
             char ch = '-';
+            char ch2 = '|';
 
             if (strlen(str) + charsNum >= sizeof(str))
             {
@@ -95,7 +106,14 @@ void printBoard()
                 int ogLength = strlen(str);
                 for (int j = 0; j < charsNum; j++)
                 {
-                    str[ogLength + j] = ch;
+                    if (j % 4 == 0 || j == 0)
+                    {
+                        str[ogLength + j] = ch2;
+                    }
+                    else
+                    {
+                        str[ogLength + j] = ch;
+                    }
                 }
 
                 str[ogLength + charsNum] = '\0';
@@ -138,6 +156,7 @@ int checkWin()
         if (!flagHor || !flagVert)
         {
             winner = !flagHor ? checkHor[0] : checkVert[0];
+            printBoard();
             printf("\nThe winner is %c!!", winner);
             return winner == 'X' ? 1 : 2;
         }
@@ -163,11 +182,14 @@ int checkWin()
     if (!flagRight || !flagLeft)
     {
         winner = !flagRight ? board[0][0] : board[0][SIZE - 1];
+        printBoard();
         printf("\nThe winner is %c!!\n", winner);
         return winner == 'X' ? 1 : 2;
     }
 
-    if(checkFreeSpaces() == 0) {
+    if (checkFreeSpaces() == 0)
+    {
+        printBoard();
         printf("\nIt's a tie! you suck lol");
         return 3;
     }
@@ -238,4 +260,16 @@ void computerMove()
     board[y][x] = 'O';
 
     printf("(%d, %d)\n", x, y);
+}
+
+void clearBoard()
+{
+    // assign starting values to the board
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            board[i][j] = ' ';
+        }
+    }
 }
