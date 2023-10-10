@@ -137,9 +137,26 @@ node_t *reverseListIterative(node_t *head)
     return prev;
 }
 
-node_t *reverseListRecursively(node_t *head)
+node_t *reverseListRecursive(node_t *head)
 {
     // reverses a list recursively and returns the new head
+
+    node_t *newHead = NULL;
+
+    if (head->next == NULL)
+    {
+        newHead = head;
+        return head;
+    }
+    else
+    {
+        node_t *next = reverseListRecursive(head);
+        next->next = head;
+    }
+
+    head->next = NULL;
+
+    return newHead;
 }
 
 int main()
@@ -156,11 +173,9 @@ int main()
 
     printList(head);
 
-    // find a node
     node_t *sus = findNode(head, 4);
     printf("node with value %d is at %p\n", sus->value, sus);
 
-    // remove a node
     printf("removing value 4 from list:\n");
     head = removeNode(head, 4);
     printList(head);
@@ -169,15 +184,17 @@ int main()
     head = removeNode(head, 8);
     printList(head);
 
-    // instert a new node after another
     printf("adding new node with value 69 after node 6\n");
     node_t *newNode = createNode(69);
     insertAfterNode(findNode(head, 6), newNode);
     printList(head);
 
-    // reverse the list
-    printf("reversing the list:\n");
+    printf("reversing the list iteratively:\n");
     head = reverseListIterative(head);
+    printList(head);
+
+    printf("reversing the list recursively:\n");
+    head = reverseListRecursive(head);
     printList(head);
 
     return 0;
