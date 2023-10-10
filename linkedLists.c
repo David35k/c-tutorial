@@ -110,8 +110,12 @@ node_t *removeNode(node_t *head, int value)
     }
 }
 
-node_t *insertAfterNode(node_t *head, node_t *nodeAfter, node_t *nodeInstert)
+void insertAfterNode(node_t *nodeAfter, node_t *nodeInsert)
 {
+    // inserts a new node after the specified node
+
+    nodeInsert->next = nodeAfter->next;
+    nodeAfter->next = nodeInsert;
 }
 
 node_t *reverseList(node_t *head)
@@ -132,15 +136,23 @@ int main()
 
     printList(head);
 
+    // find a node
     node_t *sus = findNode(head, 4);
     printf("node with value %d is at %p\n", sus->value, sus);
 
+    // remove a node
     printf("removing value 4 from list:\n");
     head = removeNode(head, 4);
     printList(head);
 
     printf("removing value 8 from list:\n");
     head = removeNode(head, 8);
+    printList(head);
+
+    // instert a new node after another
+    printf("adding new node with value 69 after node 6\n");
+    node_t *newNode = createNode(69);
+    insertAfterNode(findNode(head, 6), newNode);
     printList(head);
 
     return 0;
