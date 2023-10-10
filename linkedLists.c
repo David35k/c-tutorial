@@ -118,8 +118,28 @@ void insertAfterNode(node_t *nodeAfter, node_t *nodeInsert)
     nodeAfter->next = nodeInsert;
 }
 
-node_t *reverseList(node_t *head)
+node_t *reverseListIterative(node_t *head)
 {
+    // reverses a list iteratively and returns the new head
+
+    node_t *curr = head;
+    node_t *next = NULL;
+    node_t *prev = NULL;
+
+    while (curr != NULL)
+    {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    return prev;
+}
+
+node_t *reverseListRecursively(node_t *head)
+{
+    // reverses a list recursively and returns the new head
 }
 
 int main()
@@ -153,6 +173,11 @@ int main()
     printf("adding new node with value 69 after node 6\n");
     node_t *newNode = createNode(69);
     insertAfterNode(findNode(head, 6), newNode);
+    printList(head);
+
+    // reverse the list
+    printf("reversing the list:\n");
+    head = reverseListIterative(head);
     printList(head);
 
     return 0;
