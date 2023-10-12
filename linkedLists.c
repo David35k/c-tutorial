@@ -152,8 +152,6 @@ node_t *reverseListIterative(node_t *head)
     return prev;
 }
 
-node_t *bruh = NULL;
-
 node_t *reverseListRecursive(node_t *head)
 {
     // reverses a list recursively and returns head of new list
