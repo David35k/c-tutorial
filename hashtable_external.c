@@ -118,7 +118,7 @@ bool tableDelete(char *name)
         return false;
     if (prev == NULL)
     {
-        hash_table[index] == tmp->next;
+        hash_table[index] = tmp->next;
         return true;
     }
 
@@ -155,7 +155,7 @@ int main()
 
     printTable();
 
-    person *temp = tableLookup("Noshirwan");
+    person *temp = tableLookup("Jim");
 
     if (temp == NULL)
     {
@@ -167,10 +167,12 @@ int main()
     }
 
     tableDelete("Noshirwan");
+    tableDelete("Ferb");
+    tableDelete("Jim");
 
     printTable();
 
-    temp = tableLookup("Noshirwan");
+    temp = tableLookup("Jim");
 
     if (temp == NULL)
     {
