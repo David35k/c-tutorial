@@ -25,6 +25,22 @@ void printList(node_t *head)
     printf("\n"); // pwetty fowmatting :3
 }
 
+node_t *printListRecur(node_t *head)
+{
+    // prints the list backwards lawl
+
+    if (head->next == NULL)
+    {
+        printf("%d ", head->value);
+        return head;
+    }
+
+    printListRecur(head->next);
+    printf("%d ", head->value);
+
+    return head;
+}
+
 node_t *createNode(int value)
 {
     // creates a node with specified value and next pointer of NULL
@@ -205,6 +221,9 @@ int main()
     printf("reversing the list recursively:\n");
     head = reverseListRecursive(head);
     printList(head);
+
+    printf("printing list recursively:\n");
+    printListRecur(head);
 
     return 0;
 }
