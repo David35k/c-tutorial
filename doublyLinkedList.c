@@ -11,10 +11,9 @@ struct node
 
 typedef struct node node_t;
 
+// create a node with given value and return it, returns null if error
 node_t *createNode(int value)
 {
-    // create a node with given value and return it, returns null if error
-
     node_t *node = (node_t *)malloc(sizeof(node_t));
     if (node != NULL)
     {
@@ -29,16 +28,14 @@ node_t *createNode(int value)
 }
 
 // since working with a doubly linked list the tail is actually useful
+// given the head of linked list returns pointer to tail node
 node_t *getTail(node_t *head)
 {
-    // given the head of linked list returns pointer to tail node
-
     node_t *temp = head;
-    while (temp != NULL)
+    while (temp->next != NULL)
     {
         temp = temp->next;
     }
-    printf("%d", temp->value);
 
     return temp;
 }
@@ -53,11 +50,11 @@ node_t *setNext(node_t *node)
     return node->next;
 }
 
+// prints a list from startNode to last node depending on which function is passed
+// if setPrev is passed it will go in reverse and follow prev pointers
+// if setNext is passed it will go forward and follow next pointers
 void printList(node_t *startNode, node_t *(*setNode)(node_t *))
 {
-    // prints a list from startNode to last node depending on which function is passed
-    // if setPrev is passed it will go in reverse and follow prev pointers
-    // if setNext is passed it is the opposite
 
     node_t *temp = startNode;
     while (temp != NULL)
@@ -65,16 +62,92 @@ void printList(node_t *startNode, node_t *(*setNode)(node_t *))
         printf("value: %d\n", temp->value);
         temp = setNode(temp);
     }
+
+    printf("\n");
 }
 
+// insert given node at head of list
 node_t *insertHead(node_t *head, node_t *node)
 {
-    // insert given node at head of list
+    if (head != NULL)
+    {
+        head->prev = node;
+        node->next = head;
+        node->prev = NULL;
+    }
 
-    head->prev = node;
-    node->next = head;
-    node->prev = NULL; // making sure
     return node;
+}
+
+// finds a node with given value and returns pointer to it
+// if cant find the node returns NULL
+node_t *findNodeUsingHead(node_t *head, int value)
+{
+    node_t *temp = head;
+    while (temp != NULL)
+    {
+        if (temp->value == value)
+        {
+            return temp;
+        }
+
+        temp = temp->next;
+    }
+
+    return NULL;
+}
+
+// inserts a new node after the specified node/
+void insertNodeAfter(node_t *nodeToInsert, node_t *nodeToInsertAfter)
+{
+    nodeToInsert->next = nodeToInsertAfter->next;
+    nodeToInsertAfter->next = nodeToInsert;
+    nodeToInsert->prev = nodeToInsertAfter;
+    nodeToInsert->next->prev = nodeToInsert;
+}
+
+// deletes a node with given value
+// returns the new head of the list
+node_t *deleteNodeUsingHead(node_t *head, int value)
+{
+    node_t *temp = head;
+    while (temp != NULL)
+    {
+        if (temp->value == value)
+        {
+
+            if (temp->prev == NULL && temp->next == NULL)
+            {
+                free(temp);
+                return NULL;
+            }
+
+            if (temp->prev == NULL)
+            {
+                node_t *temptemp = temp->next;
+                temptemp->prev = NULL;
+                free(temp);
+                return (temptemp);
+            }
+
+            if (temp->next == NULL)
+            {
+                temp->prev->next = NULL;
+                free(temp);
+                return head;
+            }
+
+            temp->prev->next = temp->next;
+            temp->next->prev = temp->prev;
+            free(temp);
+            return head;
+        }
+
+        temp = temp->next;
+    }
+
+    printf("ermm, something aint right!!☝🤓");
+    return NULL;
 }
 
 int main()
@@ -83,15 +156,29 @@ int main()
     node_t *tail = NULL;
     node_t *tmp = NULL;
 
-    for (int i = 0; i < 15; i++)
+    for (int i = 1; i < 16; i++)
     {
         tmp = createNode(i);
         head = insertHead(head, tmp);
     }
+    printf("\n");
 
-    // tail = getTail(head);
+    tail = getTail(head);
 
     printList(head, setNext);
+    printList(tail, setPrev);
+
+    tmp = findNodeUsingHead(head, 11);
+    node_t *randomNode = createNode(69);
+    insertNodeAfter(randomNode, tmp);
+
+    printList(head, setNext);
+    printList(tail, setPrev);
+
+    head = deleteNodeUsingHead(head, 13);
+
+    printList(head, setNext);
+    printList(tail, setPrev);
 
     return 0;
 }
