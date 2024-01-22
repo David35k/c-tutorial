@@ -2,12 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// linked list node
 struct node
 {
     int value;
     struct node *next;
 };
 
+// typedefed linked list node
 typedef struct node node_t;
 
 node_t *top = NULL;
@@ -39,6 +41,7 @@ void push(node_t *node)
     top = node;
 }
 
+// pop an item off the stack
 void pop()
 {
     if (top == NULL)
@@ -48,8 +51,8 @@ void pop()
     }
 
     node_t *temp = top;
-    free(top);
-    top = temp->next;
+    top = top->next;
+    free(temp);
 }
 
 // prints the stack
@@ -84,6 +87,10 @@ int main()
 
     tmp = createNode(69);
     push(tmp);
+
+    printStack(top);
+
+    pop();
 
     printStack(top);
 
