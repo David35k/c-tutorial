@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
 
 struct node
@@ -56,7 +55,7 @@ void pop()
     }
 }
 
-bool isValid(char *s)
+int isValid(char *s)
 {
     node_t *temp = NULL;
 
@@ -79,7 +78,7 @@ bool isValid(char *s)
             }
             else
             {
-                return false;
+                return 0;
             }
             break;
         case '}':
@@ -89,7 +88,7 @@ bool isValid(char *s)
             }
             else
             {
-                return false;
+                return 0;
             }
             break;
         case ']':
@@ -99,12 +98,13 @@ bool isValid(char *s)
             }
             else
             {
-                return false;
+                return 0;
             }
             break;
         }
     }
 
+    // only return true if top node is null, so smart - future david
     return (top == NULL);
 }
 
