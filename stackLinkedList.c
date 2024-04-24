@@ -30,7 +30,6 @@ node_t *createNode(int value)
 }
 
 // push a node into the stack
-// returns new top of list
 void push(node_t *node)
 {
     if (top != NULL)
