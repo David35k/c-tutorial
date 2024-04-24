@@ -41,6 +41,7 @@ void pop()
     top--;
 }
 
+// easy peasy
 void reverseString(char *str, int len)
 {
     for (int i = 0; i < len; i++)

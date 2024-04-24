@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define STACK_SIZE 10
+#define STACK_SIZE 20
 
 // keeps track of the top-most element in the stack (its index)
 // -1 means the list is empty
@@ -40,6 +40,22 @@ void pop()
     top--;
 }
 
+void printList(node_t *head)
+{
+    // prints out the values of each node in order
+
+    node_t *temp = head;
+
+    // n1.next = NULL so it will stop after the last element very gud
+    while (temp != NULL)
+    {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("\n"); // pwetty fowmatting :3
+}
+
 // reverse list
 // returns the new head of the linked list
 node_t *reverse(node_t *head)
@@ -59,8 +75,14 @@ node_t *reverse(node_t *head)
         temp = temp->next;
     }
 
+    // lesson learned!!
+    // at first i thought the below code wouldnt work without the initial pop() call befor the while loop
+    // however, it works even without it because the head->next just gets reassigned, this means that
+    // there is no double 0 at the start like i thought there would be
+    // however it is better to keep it there to reduce the amount of times the loop is called
+
+    head = stack[top];
     temp = stack[top];
-    head = temp;
     pop();
     while (-1 < top)
     {
@@ -74,22 +96,6 @@ node_t *reverse(node_t *head)
 }
 
 // linked list shinenigans
-
-void printList(node_t *head)
-{
-    // prints out the values of each node in order
-
-    node_t *temp = head;
-
-    // n1.next = NULL so it will stop after the last element very gud
-    while (temp != NULL)
-    {
-        printf("%d ", temp->data);
-        temp = temp->next;
-    }
-
-    printf("\n"); // pwetty fowmatting :3
-}
 
 node_t *createNode(int data)
 {
@@ -113,7 +119,7 @@ int main()
     node_t *tmp;
 
     // this adds a new nodes at the start of the list
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 20; i++)
     {
         tmp = createNode(i);          // create a new node
         head = insertHead(head, tmp); // set head to the new node

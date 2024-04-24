@@ -62,8 +62,6 @@ bool isValid(char *s)
 
     for (int i = 0; i < strlen(s); i++)
     {
-        printf("\ns[i]: %c, ", s[i]);
-
         switch (s[i])
         {
         case '(':
@@ -105,9 +103,6 @@ bool isValid(char *s)
             }
             break;
         }
-
-        if (top != NULL)
-            printf("top->value: %c", top->value);
     }
 
     return (top == NULL);
@@ -115,6 +110,15 @@ bool isValid(char *s)
 
 int main()
 {
-    char *sus = "(){}[()]{{((()))}}";
-    printf("\n%d", isValid(sus));
+    char sus[51];
+    printf("enter a string:\n");
+    fgets(sus, 50, stdin);
+    if (isValid(sus))
+    {
+        printf("yeah man thats valid af");
+    }
+    else
+    {
+        printf("dude that is NOT VALID!!");
+    }
 }
