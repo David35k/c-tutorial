@@ -37,56 +37,29 @@ void pop()
 }
 
 // evaluate a postfix expression and return result
-float evaluatePostfix(char *str)
+float evaluatePrefix(char *str)
 {
     // get length of string
     int length = strlen(str);
+
+    // have to store the operator
+    char operator;
+
     // loop through the string (except the null character at the end)
     for (int i = 0; i < length - 1; i++)
     {
         // check if operator
         if (str[i] == '^' || str[i] == '*' || str[i] == '/' || str[i] == '+' || str[i] == '-')
         {
-            if (top < 1)
+            if (top > -1)
             {
-                // this means there arent two operands before the operator which is sus
+                // this means there are operands before the operator which is sus
                 printf("dawg, you didnt write the expression properly\n");
                 printf("failed at %c\n", str[i]);
                 return 0;
             }
 
-            float result;
-
-            // push the result
-            switch (str[i])
-            {
-            case '^':
-                result = pow(stack[top - 1], stack[top]);
-                break;
-            case '*':
-                result = stack[top - 1] * stack[top];
-                break;
-            case '/':
-                result = stack[top - 1] / stack[top];
-                break;
-            case '+':
-                result = stack[top - 1] + stack[top];
-                break;
-            case '-':
-                result = stack[top - 1] - stack[top];
-                break;
-
-            default:
-                printf("what the sus, thats a funky error, looks like operator isnt recognized\n");
-                break;
-            }
-
-            // pop off the two last elements
-            pop();
-            pop();
-
-            // push the result
-            push(result);
+            operator= str[i];
         }
         else
         {
@@ -100,6 +73,43 @@ float evaluatePostfix(char *str)
                 printf("dude, why are there letters in your expression!?!? %c\n", str[i]);
                 return 0;
             }
+
+            // if there are two elements
+            if (top == 1)
+            {
+                float result;
+
+                // push the result
+                switch (operator)
+                {
+                case '^':
+                    result = pow(stack[top - 1], stack[top]);
+                    break;
+                case '*':
+                    result = stack[top - 1] * stack[top];
+                    break;
+                case '/':
+                    result = stack[top - 1] / stack[top];
+                    break;
+                case '+':
+                    result = stack[top - 1] + stack[top];
+                    break;
+                case '-':
+                    result = stack[top - 1] - stack[top];
+                    break;
+
+                default:
+                    printf("what the sus, thats a funky error, looks like operator isnt recognized\n");
+                    break;
+                }
+
+                // pop off the two last elements
+                pop();
+                pop();
+
+                // push the result
+                push(result);
+            }
         }
     }
 
@@ -109,7 +119,7 @@ float evaluatePostfix(char *str)
 int main()
 {
     char str[51];
-    printf("dude, enter an expression in postfix notation\n");
+    printf("dude, enter an expression in prefix notation\n");
     fgets(str, 50, stdin);
-    printf("= %.2f\n", evaluatePostfix(str));
+    printf("= %.2f\n", evaluatePrefix(str));
 }
