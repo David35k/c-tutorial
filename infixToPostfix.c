@@ -90,7 +90,7 @@ char *infixToPostfix(char *str)
         else if (isOperator(str[i]))
         {
             // keep adding from stack as long as it has precedence
-            while (hasPrecedence(stack[top], str[i]))
+            while (top > -1 && hasPrecedence(stack[top], str[i]))
             {
                 strncat(result, &stack[top], 1);
                 pop();
