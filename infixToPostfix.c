@@ -48,6 +48,8 @@ int isOperator(char ch)
     case '/':
     case '*':
     case '^':
+    case '(':
+    case ')':
         return 1;
     default:
         return 0;
@@ -89,6 +91,13 @@ char *infixToPostfix(char *str)
         }
         else if (isOperator(str[i]))
         {
+            // if opening bracket add to stack and go next
+            if (str[i] == '(')
+            {
+                push(str[i]);
+                continue;
+            }
+
             // keep adding from stack as long as it has precedence
             while (top > -1 && hasPrecedence(stack[top], str[i]))
             {
@@ -96,8 +105,15 @@ char *infixToPostfix(char *str)
                 pop();
             }
 
-            // add the new operand to the stack
-            push(str[i]);
+            if (str[i] != ')')
+            {
+                // add the new operand to the stack
+                push(str[i]);
+            }
+            else
+            {
+                pop();
+            }
         }
     }
 
