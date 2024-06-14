@@ -39,4 +39,71 @@ int isFull()
 
 void enqueue(int value)
 {
+    // cant add more if the queue is full
+    if (isFull())
+    {
+        printf("yo g, cant't enqueue because the queue is full! maybe dequeue?\n");
+    }
+    else if (isEmpty())
+    {
+        // set both top and rear to 0 cos there is only one element
+        top, rear = 0;
+        queue[rear] = value;
+    }
+    else
+    {
+        // insert at rear
+        rear++;
+        queue[rear] = value;
+    }
+}
+
+int dequeue()
+{
+    if (isEmpty())
+    {
+        printf("yo g cant dequeue cos there is nothing to dequeue!!\n");
+    }
+    else
+    {
+        int temp = queue[top];
+
+        // shift everything by one towards top
+        for (int i = top; i < rear + 1; i++)
+        {
+            queue[i] = queue[i + 1];
+        }
+
+        rear--;
+        return temp;
+    }
+}
+
+void printQueue()
+{
+    for (int i = top; i < rear + 1; i++)
+    {
+        printf("%d ", queue[i]);
+    }
+    printf("\n");
+}
+
+int main()
+{
+    enqueue(1);
+    enqueue(2);
+    enqueue(3);
+    enqueue(4);
+    enqueue(5);
+    enqueue(6);
+    enqueue(7);
+    enqueue(8);
+    enqueue(9);
+    enqueue(10);
+    dequeue();
+    enqueue(11);
+
+    printQueue();
+
+    return 1;
 }
