@@ -64,6 +64,11 @@ int dequeue()
     {
         printf("yo g cant dequeue cos there is nothing to dequeue!!\n");
     }
+    else if (top == rear)
+    {
+        // only one element so dequeue will make the queue empty
+        top, rear = -1;
+    }
     else
     {
         int temp = queue[top];
