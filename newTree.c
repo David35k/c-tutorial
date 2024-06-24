@@ -59,6 +59,42 @@ void insertNode(node_t *node)
     return;
 }
 
+void insertNodeRecur(node_t *head, node_t *node)
+{
+    if (node == NULL)
+    {
+        printf("mate, the node you passed is null (insert recur)\n");
+        return;
+    }
+
+    if (head == NULL)
+    {
+        printf("mate, the head you passed is null (insert recur)\n");
+        return;
+    }
+
+    if (node->value <= head->value)
+    {
+        if (head->left == NULL)
+        {
+            head->left = node;
+            return;
+        }
+
+        insertNodeRecur(head->left, node);
+    }
+    else if (node->value > head->value)
+    {
+        if (head->right == NULL)
+        {
+            head->right = node;
+            return;
+        }
+
+        insertNodeRecur(head->right, node);
+    }
+}
+
 // iterative
 node_t *search(int value)
 {
@@ -91,21 +127,57 @@ node_t *search(int value)
     return NULL;
 }
 
-// void deleteNode(int value)
-// {
-//     if (value == NULL)
-//     {
-//         printf("mate the value you passed is null!!!!! (delete)\n");
-//         return;
-//     }
+node_t *searchRecur(node_t *head, int value)
+{
+    if (head == NULL)
+    {
+        printf("mate, the head you passed is null (search recur)\n");
+        return NULL;
+    }
 
-//     node_t *temp = root;
+    if (value == NULL)
+    {
+        printf("mate, the value you passed is null (search recur)\n");
+        return NULL;
+    }
 
-//     printf("somethin aint right bro\n");
-//     return;
-// }
+    if (value == head->value)
+    {
+        return head;
+    }
+    else if (head->left == NULL && head->right == NULL)
+    {
+        return NULL;
+    }
 
-// recursive
+    node_t *resultLeft = NULL;
+    node_t *resultRight = NULL;
+
+    if (head->left != NULL)
+    {
+        resultLeft = searchRecur(head->left, value);
+    }
+
+    if (head->right != NULL)
+    {
+        resultRight = searchRecur(head->right, value);
+    }
+
+    if (resultLeft == NULL)
+    {
+        return resultRight;
+    }
+    else if (resultRight == NULL)
+    {
+        return resultLeft;
+    }
+    else if (resultLeft != NULL && resultRight != NULL)
+    {
+        printf("uhhh, somethin aint right dude\n");
+        return NULL;
+    }
+}
+
 void printTreeRecur(node_t *node)
 {
 
@@ -114,25 +186,11 @@ void printTreeRecur(node_t *node)
         return;
     }
 
-    printf("value: %d\n", node->value);
+    printf("value: %i\n", node->value);
     printf("left\n");
     printTreeRecur(node->left);
     printf("right\n");
     printTreeRecur(node->right);
-}
-
-// recursive
-int getHeight(node_t *node)
-{
-    if (node == NULL)
-    {
-        return 0;
-    }
-
-    int heightLeft = getHeight(node->left);
-    int heightRight = getHeight(node->right);
-
-    return (heightLeft > heightRight ? heightLeft : heightRight);
 }
 
 int main()
@@ -142,6 +200,16 @@ int main()
     insertNode(createNode(8));
     insertNode(createNode(13));
     insertNode(createNode(3));
+
+    insertNodeRecur(root, createNode(16));
+    insertNodeRecur(root, createNode(9));
+    insertNodeRecur(root, createNode(11));
+    insertNodeRecur(root, createNode(4));
+
+    printTreeRecur(root);
+
+    printf("found: %i\n", search(11)->value);
+    printf("found: %i\n", searchRecur(root, 11)->value);
 
     return 0;
 }
