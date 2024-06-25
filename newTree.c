@@ -193,6 +193,71 @@ void printTreeRecur(node_t *node)
     printTreeRecur(node->right);
 }
 
+// recursive cos recursive is epic🔥
+int findMax(node_t *root)
+{
+    if (root == NULL)
+    {
+        printf("braz, the node you passed is null (findmax)");
+        return 0;
+    }
+
+    if (root->right == NULL)
+    {
+        return root->value;
+    }
+    else
+    {
+        return findMax(root->right);
+    }
+}
+
+int findMin(node_t *root)
+{
+    if (root == NULL)
+    {
+        printf("braz, the node you passed is null (findmin)");
+        return 0;
+    }
+
+    if (root->left == NULL)
+    {
+        return root->value;
+    }
+    else
+    {
+        return findMin(root->left);
+    }
+}
+
+int height(node_t *root)
+{
+    if (root == NULL)
+    {
+        printf("braz, the node you passed is null (height)");
+        return 0;
+    }
+
+    if (root->left == NULL && root->right == NULL)
+    {
+        return 1;
+    }
+
+    int heightLeft = 0;
+    int heightRight = 0;
+
+    if (root->left != NULL)
+    {
+        heightLeft = height(root->left) + 1;
+    }
+    if (root->right != NULL)
+    {
+        heightRight = height(root->right) + 1;
+    }
+
+    return (heightLeft > heightRight ? heightLeft : heightRight);
+}
+
 int main()
 {
     root = createNode(10);
@@ -205,11 +270,19 @@ int main()
     insertNodeRecur(root, createNode(9));
     insertNodeRecur(root, createNode(11));
     insertNodeRecur(root, createNode(4));
+    insertNodeRecur(root, createNode(2));
+    insertNodeRecur(root, createNode(19));
+    insertNodeRecur(root, createNode(69));
+    insertNodeRecur(root, createNode(50));
+    insertNodeRecur(root, createNode(420));
 
     printTreeRecur(root);
 
     printf("found: %i\n", search(11)->value);
     printf("found: %i\n", searchRecur(root, 11)->value);
+    printf("max value in tree: %i\n", findMax(root));
+    printf("min value in tree: %i\n", findMin(root));
+    printf("height: %i\n", height(root));
 
     return 0;
 }
