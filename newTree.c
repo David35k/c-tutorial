@@ -13,6 +13,97 @@ typedef struct node node_t;
 
 node_t *root = NULL;
 
+// using a queue to do breadth first traveersal, pretty epic
+
+#define QUEUE_SIZE 20
+
+node_t *queue[QUEUE_SIZE];
+int front = -1;
+int rear = -1;
+
+// returns 1 if the queue is empty, 0 if it has elements in it
+int isEmpty()
+{
+    if (front == -1 && rear == -1)
+    {
+        printf("yeah mate, pretty empty\n");
+        return 1;
+    }
+
+    return 0;
+}
+
+// returns 1 if the queue is full, 0 if it there is free space
+int isFull()
+{
+    if ((rear + 1) % QUEUE_SIZE == front)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+void enqueue(node_t *node)
+{
+    // cant add more if the queue is full
+    if (isFull())
+    {
+        printf("yo g, cant't enqueue because the queue is full! maybe dequeue?\n");
+    }
+    else if (isEmpty())
+    {
+        // set both front and rear to 0 cos there is only one element
+        front = 0;
+        rear = 0;
+        queue[rear] = node;
+    }
+    else
+    {
+        // insert at rear
+        rear = (rear + 1) % QUEUE_SIZE;
+        queue[rear] = node;
+    }
+}
+
+node_t *dequeue()
+{
+    if (isEmpty())
+    {
+        printf("yo g cant dequeue cos there is nothing to dequeue!!\n");
+    }
+    else if (front == rear)
+    {
+        // only one element so dequeue will make the queue empty
+        node_t *temp = queue[front];
+        front = -1;
+        rear = -1;
+        return temp;
+    }
+    else
+    {
+        node_t *temp = queue[front];
+        front = (front + 1) % QUEUE_SIZE;
+        return temp;
+    }
+}
+
+void printQueue()
+{
+    printf("queue: ");
+    if (!isEmpty())
+    {
+        int i = front;
+        while (i != rear)
+        {
+            printf("%i,", queue[i]->value);
+            i = (i + 1) % QUEUE_SIZE;
+        }
+        printf("%i", queue[rear]->value);
+    }
+    printf("\n");
+}
+
 node_t *createNode(int value)
 {
     node_t *result = malloc(sizeof(node_t));
@@ -240,7 +331,7 @@ int height(node_t *root)
 
     if (root->left == NULL && root->right == NULL)
     {
-        return 1;
+        return 0;
     }
 
     int heightLeft = 0;
@@ -256,6 +347,31 @@ int height(node_t *root)
     }
 
     return (heightLeft > heightRight ? heightLeft : heightRight);
+}
+
+void breadthFirst(node_t *root)
+{
+    if (root == NULL)
+    {
+        printf("dawg that node is null (breadthFirst thing)");
+        return;
+    }
+
+    printf("%i\n", root->value);
+
+    if (root->left != NULL)
+    {
+        enqueue(root->left);
+    }
+
+    if (root->right != NULL)
+    {
+        enqueue(root->right);
+    }
+
+    // printQueue();
+
+    breadthFirst(dequeue());
 }
 
 int main()
@@ -276,13 +392,16 @@ int main()
     insertNodeRecur(root, createNode(50));
     insertNodeRecur(root, createNode(420));
 
-    printTreeRecur(root);
+    // printTreeRecur(root);
 
     printf("found: %i\n", search(11)->value);
     printf("found: %i\n", searchRecur(root, 11)->value);
     printf("max value in tree: %i\n", findMax(root));
     printf("min value in tree: %i\n", findMin(root));
     printf("height: %i\n", height(root));
+
+    printf("breadth first: \n");
+    breadthFirst(root);
 
     return 0;
 }
